@@ -1,0 +1,17 @@
+# Default applications for startup and shutdown.
+# Add/remove applications to customize
+apps:
+  - 'Google Chrome'
+  - 'MacVim'
+  - 'iTerm'
+  - 'Lounge'
+  - 'GitHub'
+  - 'Tracker'
+  - 'Freckle'
+  - 'Socialcast'
+  - 'Nachrichten'
+  - 'Things'
+
+# URLs open in default browser
+urls:
+  - 'http://www.github.com'

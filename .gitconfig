@@ -1,0 +1,7 @@
+[user]
+	name = Mila Frerichs
+	email = mila.frerichs@gmail.com
+[color]
+	ui = true
+[core]
+	editor = vim
