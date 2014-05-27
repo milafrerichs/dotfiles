@@ -1,0 +1,31 @@
+# ~/.tmuxinator/tmuxinator.yml
+
+name: tmuxinator
+root: /projects/project
+
+# Optional tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+pre: mysql.server start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: rbenv shell 1.9.3-p484
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+windows:
+  - editor:
+      layout: b774,364x82,0,0[364x74,0,0,0,364x7,0,75,3]
+      panes:
+        - vim .
+        - 
+  - server: 
+      layout: main-vertical
+      panes:
+        - zeus start
+        - zeus s
+  - console: zeus c
