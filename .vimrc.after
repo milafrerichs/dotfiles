@@ -12,7 +12,26 @@ set splitright
 
 let g:airline#extensions#tabline#enabled = 1
 :source /zweitag/gems/vim_translate/vim_translate.vim
+color Tomorrow-Night-Eighties
 
 map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
+
+let g:rspec_command = 'call Send_to_Tmux("zeus rspec {spec}\n")'
+" let g:rspec_command = "!zeus rspec {spec}"
+" let g:rspec_runner = "os_x_iterm"
+
+nnoremap <Leader>l :ls<CR>
+nnoremap <Leader>1 :1b<CR>
+nnoremap <Leader>2 :2b<CR>
+nnoremap <Leader>3 :3b<CR>
+nnoremap <Leader>4 :4b<CR>
+nnoremap <Leader>5 :5b<CR>
+nnoremap <Leader>6 :6b<CR>
+nnoremap <Leader>7 :7b<CR>
+nnoremap <Leader>8 :8b<CR>
+nnoremap <Leader>9 :9b<CR>
+nnoremap <Leader>0 :10b<CR>
+
+let g:vimrubocop_config = '~/dotfiles/rubocop.yml'
