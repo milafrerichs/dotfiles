@@ -1,6 +1,7 @@
 " ========================================================================
 " Vundle stuff
 " ========================================================================
+set exrc
 set nocompatible " Required by vundle
 filetype off     " Required by vundle
 
@@ -63,10 +64,10 @@ filetype plugin indent on " Enable filetype-specific indenting and plugins
 map <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
+map <Leader>a :call RunAllSpecs()<CR>
 
-
-
-let g:rspec_command = "Dispatch bin/rspec {spec}"
+let g:rspec_command = "Dispatch bundle exec rspec {spec}"
+let g:rspec_runner = "os_x_iterm"
 
 set history=500		" keep 500 lines of command line history
 set ruler		" show the cursor position all the time

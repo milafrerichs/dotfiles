@@ -11,16 +11,21 @@ set splitbelow
 set splitright
 
 let g:airline#extensions#tabline#enabled = 1
-:source /zweitag/gems/vim_translate/vim_translate.vim
 color Tomorrow-Night-Eighties
 
-map <Leader>t :call RunCurrentSpecFile()<CR>
+"let g:turbux_runner  = 'vim'
+
+"map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>t :w<cr>:call RunCurrentSpecFile()<CR>
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 
-let g:rspec_command = 'call Send_to_Tmux("zeus rspec {spec}\n")'
-" let g:rspec_command = "!zeus rspec {spec}"
-" let g:rspec_runner = "os_x_iterm"
+"let g:rspec_command = 'call Send_to_Tmux("bundle exec rspec {spec}\n")'
+"let g:rspec_runner = "os_x_iterm"
+
+let g:rspec_command = "Dispatch bin/rspec {spec}"
+
+map <Leader>h :call RunHamlRakeTask()<CR>
 
 nnoremap <Leader>l :ls<CR>
 nnoremap <Leader>1 :1b<CR>
