@@ -24,7 +24,14 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'tpope/vim-fugitive'
+Plugin 'pangloss/vim-javascript'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Raimondi/delimitMate'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 
 " Colors
 Plugin 'nanotech/jellybeans.vim'
@@ -69,7 +76,9 @@ set number
 set bg=light
 set encoding=utf-8
 set ignorecase
-
+set tabstop=2
+set shiftwidth=2
+set expandtab
 
 highlight StatusLine ctermfg=black ctermbg=green
 let g:airline#extensions#tabline#enabled = 1
@@ -86,7 +95,15 @@ map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 set splitbelow
 set splitright
 
+" Code Style
 let g:vimrubocop_config = '~/dotfiles/rubocop.yml'
+let g:syntastic_javascript_checkers = ['standard']
+
+" Markdown
+let vim_markdown_preview_toggle = 1
+let vim_markdown_preview_hotkey = '<C-m>'
+let vim_markdown_preview_github = 1
+let vim_markdown_preview_temp_file = 1
 
 augroup myfiletypes
   " Clear old autocmds in group
@@ -97,7 +114,7 @@ augroup myfiletypes
   autocmd FileType ruby,eruby,yaml setlocal colorcolumn=80
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
+  autocmd FileType javascript setlocal ai ts=2 sw=2 sts=2 et
 augroup END
 
-
-
+set secure
