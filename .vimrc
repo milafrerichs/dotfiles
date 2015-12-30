@@ -24,6 +24,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'kien/ctrlp.vim'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'tpope/vim-fugitive'
+Plugin 'bling/vim-airline'
 
 " Colors
 Plugin 'nanotech/jellybeans.vim'
@@ -72,6 +73,7 @@ set ignorecase
 
 highlight StatusLine ctermfg=black ctermbg=green
 let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts = 1
 
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k

@@ -39,6 +39,7 @@ source $ZSH/oh-my-zsh.sh
 source $HOME/dotfiles/zsh/aliases
 
 alias tmux='tmux -2'
+export TERM=screen-256color
 source $HOME/.bin/tmuxinator.zsh
 # Customize to your needs...
 
