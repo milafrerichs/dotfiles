@@ -1,0 +1,19 @@
+# ~/.tmuxinator/tmuxinator.yml
+
+name: resident research cfa
+root: /Development/work/civicvision/cfa/resident-web-use-research
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: rbenv shell 2.2.0
+
+windows:
+  - editor:
+      layout: b774,364x82,0,0[364x74,0,0,0,364x7,0,75,3]
+      panes:
+        - vim
+        - karma start
+  - server:
+      layout: main-vertical
+      panes:
+        - rs
+        -
