@@ -1,0 +1,19 @@
+# ~/.tmuxinator/tmuxinator.yml
+
+name: nana
+root: ~/Development/work/civicvision/bcg/nana/frontend-main-app
+
+pre_window: nvm use 8.9
+
+windows:
+  - editor:
+      layout: 883f,364x82,0,0{272x82,0,0,0,91x82,273,0,1}
+      panes:
+        - vim
+        - yarn test
+  - misc:
+      layout: main-vertical
+      panes:
+        - yarn start
+        - yarn test -- coverage
+        - cd coverage && rs

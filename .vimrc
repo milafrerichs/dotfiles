@@ -35,8 +35,16 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'Shutnik/jshint2.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'thomd/vim-jasmine'
 
 " Colors
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'nanotech/jellybeans.vim'
 
 " All of your Plugins must be added before the following line
@@ -44,7 +52,11 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Use the colorscheme from above
-colorscheme jellybeans
+" colorscheme jellybeans
+let g:solarized_termcolors=256
+colorscheme solarized
+syntax enable
+set background=dark
 
 let mapleader = " "
 
@@ -81,7 +93,7 @@ set encoding=utf-8
 set ignorecase
 set tabstop=2
 set shiftwidth=2
-set expandtab
+"set expandtab
 
 highlight StatusLine ctermfg=black ctermbg=green
 let g:airline#extensions#tabline#enabled = 1
@@ -102,11 +114,21 @@ set splitright
 let g:vimrubocop_config = '~/dotfiles/rubocop.yml'
 let g:syntastic_javascript_checkers = ['standard']
 
+let jshint2_save = 1
+
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <C-O>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
+
 " Markdown
 let vim_markdown_preview_toggle = 1
 let vim_markdown_preview_hotkey = '<C-m>'
 let vim_markdown_preview_github = 1
 let vim_markdown_preview_temp_file = 1
+
+let g:snipMate = get(g:, 'snipMate', {})
+let g:snipMateNextOrTrigger = '<C-x>'
+:imap <C-J> <Plug>snipMateNextOrTrigger
 
 augroup myfiletypes
   " Clear old autocmds in group
@@ -118,6 +140,7 @@ augroup myfiletypes
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
   autocmd FileType javascript setlocal ai ts=2 sw=2 sts=2 et
+  autocmd BufNewFile,BufRead *Spec.js,*_spec.js,*.spec.js set filetype=jasmine.javascript syntax=jasmine
 augroup END
 
 set secure
