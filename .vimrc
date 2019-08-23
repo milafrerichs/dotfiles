@@ -39,9 +39,12 @@ Plugin 'Shutnik/jshint2.vim'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'tomtom/tlib_vim'
-Plugin 'garbas/vim-snipmate'
 Plugin 'honza/vim-snippets'
 Plugin 'thomd/vim-jasmine'
+Plugin 'yosssi/vim-ace'
+Plugin 'evanleck/vim-svelte'
+Plugin 'SirVer/ultisnips'
+
 
 " Colors
 Plugin 'altercation/vim-colors-solarized'
@@ -126,9 +129,8 @@ let vim_markdown_preview_hotkey = '<C-m>'
 let vim_markdown_preview_github = 1
 let vim_markdown_preview_temp_file = 1
 
-let g:snipMate = get(g:, 'snipMate', {})
-let g:snipMateNextOrTrigger = '<C-x>'
-:imap <C-J> <Plug>snipMateNextOrTrigger
+" UtilSnip
+let g:UltiSnipsExpandTrigger="<C-j>"
 
 augroup myfiletypes
   " Clear old autocmds in group
