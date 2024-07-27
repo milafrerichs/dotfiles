@@ -1,11 +1,11 @@
 return {
   'glepnir/lspsaga.nvim',
   config = function()
-    require('lspsaga').init_lsp_saga {
+    require('lspsaga').setup({
       server_filetype_map = {
         typescript = 'typescript'
       }
-    }
+    })
   end,
 }
 

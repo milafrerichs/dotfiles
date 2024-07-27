@@ -1,4 +1,6 @@
 return {
+	'williamboman/mason.nvim',
+	'williamboman/mason-lspconfig.nvim',
 	'lambdalisue/fern.vim',
 	'tpope/vim-repeat',
 	'tpope/vim-surround',
@@ -11,11 +13,20 @@ return {
 	'dense-analysis/ale',
 	'compactcode/alternate.vim',
 	'neovim/nvim-lspconfig',
-	'hrsh7th/nvim-cmp',
 	'hrsh7th/cmp-nvim-lsp',
 	'onsails/lspkind-nvim',
 	'rmagatti/goto-preview',
 	'burntsushi/ripgrep',
+	'junegunn/goyo.vim',
+	'junegunn/limelight.vim',
+	'godlygeek/tabular',
+	'elzr/vim-json',
+	'plasticboy/vim-markdown',
+	{ 'nvim-tree/nvim-web-devicons',
+    config = function()
+			require('nvim-web-devicons').setup {}
+		end
+	},
 	{
 	'nvim-telescope/telescope.nvim', tag = '0.1.4',
 	dependencies = { 'nvim-lua/plenary.nvim' }
@@ -30,6 +41,18 @@ return {
 	}
 	},
 	{
+		'hrsh7th/nvim-cmp',
+    config = function()
+        require("cmp").setup({
+					snippet = {
+						expand = function(args)
+							vim.snippet.expand(args.body)
+						end
+					}
+        })
+    end
+	},
+	{
     'maxmx03/solarized.nvim',
     lazy = false,
     priority = 1000,
@@ -37,5 +60,56 @@ return {
       vim.o.background = 'light'
       vim.cmd.colorscheme 'solarized'
     end,
+  },
+	{
+    'gsuuon/model.nvim',
+
+    -- Don't need these if lazy = false
+    cmd = { 'M', 'Model', 'Mchat' },
+    init = function()
+      vim.filetype.add({
+        extension = {
+          mchat = 'mchat',
+        }
+      })
+    end,
+    ft = 'mchat',
+
+    keys = {
+      {'<C-m>d', ':Mdelete<cr>', mode = 'n'},
+      {'<C-m>s', ':Mselect<cr>', mode = 'n'},
+      {'<C-m><space>', ':Mchat<cr>', mode = 'n' }
+    },
+
+    -- To override defaults add a config field and call setup()
+
+    config = function()
+			local ollama = require('model.providers.ollama')
+			require('model').setup({
+				default_prompt = { codellama },
+				prompts = {
+					codellama = {
+						provider = ollama,
+						params = {
+							model = 'codellama',
+						},
+						builder = function(input)
+							return {
+								prompt = '[INST] <><>'
+									.. input
+									.. '[/INST]'
+							}
+						end,
+					},
+				}
+			--     chats = {..},
+			--     ..
+			})
+			--
+			--   require('model.providers.llamacpp').setup({
+			--     binary = '~/path/to/server/binary',
+			--     models = '~/path/to/models/directory'
+			--   })
+    end
   },
 }

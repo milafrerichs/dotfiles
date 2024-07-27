@@ -1,6 +1,7 @@
 return {
   'akinsho/nvim-bufferline.lua',
     config = function()
+	vim.opt.termguicolors = true
 	require('bufferline').setup {
 	options = {
     mode = "tabs",
