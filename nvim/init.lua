@@ -15,6 +15,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
 -- GENERAL SETTINGS
 require("keymaps")
+require("avante.prompt")
 require("options")
 require("lsp")
 

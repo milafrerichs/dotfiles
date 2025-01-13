@@ -22,6 +22,15 @@ return {
 	'godlygeek/tabular',
 	'elzr/vim-json',
 	'plasticboy/vim-markdown',
+	{
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function()
+        require("nvim-treesitter.configs").setup({
+            ensure_installed = { "typescript", "lua", "vim", "vimdoc", "query", "ruby", "python", "javascript", "html"  }
+        })
+    end
+	},
 	{ 'nvim-tree/nvim-web-devicons',
     config = function()
 			require('nvim-web-devicons').setup {}
@@ -38,7 +47,17 @@ return {
 	  dependencies = {
 	     "nvim-treesitter/nvim-treesitter",
 	     "nvim-tree/nvim-web-devicons"
-	}
+		}
+	},
+	{
+    'nvimdev/lspsaga.nvim',
+    config = function()
+        require('lspsaga').setup({})
+    end,
+    dependencies = {
+        'nvim-treesitter/nvim-treesitter', -- optional
+        'nvim-tree/nvim-web-devicons',     -- optional
+    }
 	},
 	{
 		'hrsh7th/nvim-cmp',
@@ -52,15 +71,21 @@ return {
         })
     end
 	},
+	"nvim-neotest/neotest-jest",
 	{
-    'maxmx03/solarized.nvim',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.o.background = 'light'
-      vim.cmd.colorscheme 'solarized'
-    end,
-  },
+		"folke/which-key.nvim",
+		event = "VeryLazy",
+		opts = { },
+		keys = {
+			{
+				"<leader>?",
+				function()
+					require("which-key").show({ global = false })
+				end,
+				desc = "Buffer Local Keymaps (which-key)",
+			},
+		},
+	},
 	{
     'gsuuon/model.nvim',
 
@@ -112,4 +137,5 @@ return {
 			--   })
     end
   },
+
 }

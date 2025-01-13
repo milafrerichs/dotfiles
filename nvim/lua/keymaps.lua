@@ -16,8 +16,11 @@ vim.api.nvim_set_keymap( "v", "<silent><F2>", ":lnext<CR>", { noremap = true })
 
 
 vim.api.nvim_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga lsp_finder<CR>', opts)
-vim.api.nvim_set_keymap('n', 'gp', '<Cmd>Lspsaga preview_definition<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gf', '<Cmd>Lspsaga finder<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
 --vim.api.nvim_set_keymap('n', '<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 --vim.api.nvim_set_keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
+
+vim.api.nvim_set_keymap('n', '<Leader>t', '<Cmd>Neotest run file<CR>', opts)

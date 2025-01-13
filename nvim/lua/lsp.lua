@@ -8,11 +8,12 @@ local on_attach = function(client, bufnr)
       group = vim.api.nvim_create_augroup("Format", { clear = true }),
       buffer = bufnr,
       callback = function() vim.lsp.buf.formatting_seq_sync() end
+			-- Add these from ts_ls lsp server
+			-- "source.organizeImports": true,
+			-- "source.addMissingImports": true,
     })
 	local opts = { noremap = true, silent = true }
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -29,6 +30,9 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>so', [[<cmd>lua require('telescope.builtin').lsp_document_symbols()<CR>]], opts)
 end
 
+--vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+--vim.api.nvim_buf_set_keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+--
 -- TypeScript
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
@@ -88,7 +92,12 @@ end
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "ruff", "rubocop", "gopls", "html", "tsserver", "jinja_lsp"  },
+    ensure_installed = { "lua_ls", "rust_analyzer", "ruff", "rubocop", "gopls", "html", "tsserver", "ts_ls", "jinja_lsp"  },
+		handlers = {
+			function(server_name)
+				require('lspconfig')[server_name].setup({})
+			end,
+  },
 }
 
 -- After setting up mason-lspconfig you may set up servers via lspconfig

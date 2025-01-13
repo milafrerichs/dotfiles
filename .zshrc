@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -45,6 +47,7 @@ export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
 export PATH=/usr/local/share/npm/bin:$PATH
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
 export GOPATH=$HOME/go
 export PATH=$GOPATH/bin:$PATH
 export NVM_DIR="$HOME/.nvm"
@@ -53,8 +56,8 @@ export EDITOR='vim'
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
 
-eval "$(pyenv init -)"
-export PATH=$(pyenv root)/shims:$PATH
+#eval "$(pyenv init -)"
+#export PATH=$(pyenv root)/shims:$PATH
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # Added by serverless binary installer
@@ -72,5 +75,8 @@ if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/milafrerichs/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
 
-. /usr/local/opt/asdf/libexec/asdf.sh
-eval "$(pyenv init -)"
+#. /usr/local/opt/asdf/libexec/asdf.sh
+#eval "$(pyenv init -)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+. "$HOME/.local/bin/env"

@@ -82,3 +82,7 @@ alias ghpr='gh pr checkout'
 alias openup='cd ~/Development/openup'
 alias fixenter='stty sane'
 alias vim=nvim
+alias dev="cd /Volumes/Awesome/Users/milafrerichs/Development"
+alias t2="cd /Volumes/Awesome/Users/milafrerichs/Development/t2"
+alias aqb='tmuxinator aqb'
+alias ewp='vim ~/WeeklyPlanning.md'
