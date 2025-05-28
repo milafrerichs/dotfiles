@@ -1,90 +1,53 @@
+local ollama_endpoint = "127.0.0.1:11434"
+local llamafile_endpoint = "127.0.0.1:8080"
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
   lazy = false,
+	debug = true,
   version = false, -- set this if you want to always pull the latest change
   opts = {
+		debug = true,
 		hints = { enabled = false },
-		provider = "qwen",
-		auto_suggestions_provider = "llama",
-		vendors = {
-    ---@type AvanteProvider
-    ["llama"] = {
-      endpoint = "127.0.0.1:11434",
+		--auto_suggestions_provider = "gemma3s",
+		provider = "gemini",
+		gemini = {
+			model = "gemini-2.0-flash",
+			parse_api_key = function()
+        return require("config.secrets").gemini
+      end,
+			temperature = 0,
+			max_tokens = 4096,
+		},
+		claude = {
+			endpoint = "https://api.anthropic.com",
+			model = "claude-3-5-sonnet-20241022",
+			parse_api_key = function()
+        return require("config.secrets").claude_api_key
+      end,
+			--api_key_name = "cmd:ClaudeAPO",
+			temperature = 0,
+			max_tokens = 4096,
+		},
+		codestral = {
+      endpoint = ollama_endpoint,
+      model = "codestral:22b-v0.1-q3_K_S",
+		},
+		llama = {
+      endpoint = ollama_endpoint,
       model = "llama3.2",
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 125000,
-			api_key = "",
-			parse_curl_args = function(opts, code_opts)
-				 return {
-					 url = opts.endpoint .. "/v1/chat/completions",
-					 headers = {
-						 ["Accept"] = "application/json",
-						 ["Content-Type"] = "application/json",
-					 },
-					 body = {
-						 model = opts.model,
-						 messages = require("avante.providers").copilot.parse_messages(code_opts),
-						 stream = true,
-					 },
-				 }
-			 end,
-			 parse_response_data = function(data_stream, event_state, opts)
-				 require("avante.providers").openai.parse_response(data_stream, event_state, opts)
-			 end,
-		 },
-    ---@type AvanteProvider
-    ["qwen"] = {
-      endpoint = "127.0.0.1:8888",
-      model = "qwen",
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 8000,
-			parse_curl_args = function(opts, code_opts)
-				 return {
-					 url = opts.endpoint .. "/v1/chat/completions",
-					 headers = {
-						 ["Accept"] = "application/json",
-						 ["Content-Type"] = "application/json",
-					 },
-					 body = {
-						 model = opts.model,
-						 messages = require("avante.providers").copilot.parse_messages(code_opts),
-						 max_tokens = 2048,
-						 stream = true,
-					 },
-				 }
-			 end,
-			 parse_response_data = function(data_stream, event_state, opts)
-				 require("avante.providers").openai.parse_response(data_stream, event_state, opts)
-			 end,
-		 },
-    ["qwenl"] = {
-      endpoint = "127.0.0.1:8080",
-      model = "qwen",
-      timeout = 30000, -- Timeout in milliseconds
-      temperature = 0,
-      max_tokens = 8000,
-			parse_curl_args = function(opts, code_opts)
-				 return {
-					 url = opts.endpoint .. "/v1/chat/completions",
-					 headers = {
-						 ["Accept"] = "application/json",
-						 ["Content-Type"] = "application/json",
-					 },
-					 body = {
-						 model = opts.model,
-						 messages = require("avante.providers").copilot.parse_messages(code_opts),
-						 max_tokens = 2048,
-						 stream = true,
-					 },
-				 }
-			 end,
-			 parse_response_data = function(data_stream, event_state, opts)
-				 require("avante.providers").openai.parse_response(data_stream, event_state, opts)
-			 end,
-		 },
+		},
+		gemma3s = {
+      endpoint = ollama_endpoint,
+      model = "gemma3:1b",
+		},
+
+		vendors = {
+			["qwenl"] = {
+				__inherited_from = "ollama",
+				endpoint = llamafile_endpoint,
+				model = "qwen",
+			},
     },
 		dual_boost = {
 			enabled = false,

@@ -20,8 +20,6 @@ vim.api.nvim_set_keymap('n', 'gf', '<Cmd>Lspsaga finder<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
-vim.api.nvim_set_keymap('n', 'grp', '<Cmd>Lspsaga rename ++project<CR>', opts)
-vim.api.nvim_set_keymap('n', 'ld', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
 --vim.api.nvim_set_keymap('n', '<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 --vim.api.nvim_set_keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
 
@@ -30,5 +28,4 @@ vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Neotest summary<CR>', opts)
 
 vim.api.nvim_set_keymap('n', '<Leader>p', '<Cmd>TimerStart 25m Work<CR>', opts)
 
-vim.api.nvim_set_keymap('n', '<Leader>o', '<Cmd>Other<CR>', opts)
-
+vim.api.nvim_set_keymap('n', '<Leader>j', '<Cmd>Other<CR>', opts)

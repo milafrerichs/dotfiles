@@ -29,3 +29,4 @@ vim.opt.number = true
 vim.opt.encoding= 'utf-8'
 vim.opt.ignorecase = true
 
+vim.opt.signcolumn = "yes:1"  -- Always show the sign column with a width of 1

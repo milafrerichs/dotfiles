@@ -46,6 +46,14 @@ require('which-key').add {
   {
     mode = { 'n', 'v' },
     {
+      '<leader>acl',
+      function()
+        require('avante.api').switch_provider("claude");
+				require('avante.api').ask()
+      end,
+      desc = 'ask claude',
+    },
+    {
       '<leader>ag',
       function()
         require('avante.api').ask { question = avante_grammar_correction }

@@ -67,6 +67,7 @@ cmp.setup({
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
     { name = 'buffer' },
+    { name = 'avante' },
   }),
   formatting = {
     format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
@@ -79,31 +80,37 @@ vim.cmd [[
 ]]
 
 -- The nvim-cmp almost supports LSP's capabilities so You should advertise it to LSP servers..
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+---local capabilities = require('cmp_nvim_lsp').default_capabilities()
 
--- Enable the following language servers. If you ever find yourself needing another programming language support, you'll have to find its LSP, add it to this list and make sure it is installed in your system! We'll go through installing tsserver together for TypeScript support.
-local servers = {} -- 'clangd', 'rust_analyzer', 'ruff_lsp', 'tsserver', 'gopls' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-  }
-end
+vim.lsp.config('lua_ls', {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = {
+          'vim',
+          'require',
+        },
+      },
+    },
+  },
+})
+vim.lsp.config('ts_ls', {
+	codeActionsOnSave = {
+		source = {
+		--organizeImports.ts" = true,
+		--"source.organizeImports": true,
+		}
+	}
+})
 
 require("mason").setup()
 require("mason-lspconfig").setup {
-    ensure_installed = { "lua_ls", "rust_analyzer", "ruff", "rubocop", "gopls", "html", "tsserver", "ts_ls", "jinja_lsp"  },
-		handlers = {
-			function(server_name)
-				require('lspconfig')[server_name].setup({})
-			end,
-  },
+	ensure_installed = { "lua_ls", "rust_analyzer", "ruff", "rubocop", "gopls", "html", "tsserver", "ts_ls", "jinja_lsp"  },
 }
 
--- After setting up mason-lspconfig you may set up servers via lspconfig
--- require("lspconfig").lua_ls.setup {}
--- require("lspconfig").rust_analyzer.setup {}
--- ...
 
 -- Make runtime files discoverable to the server.
 local runtime_path = vim.split(package.path, ';')
@@ -113,3 +120,9 @@ table.insert(runtime_path, 'lua/?/init.lua')
 -- Set completeopt to have a better completion experience.
 vim.o.completeopt = 'menuone,noselect'
 
+vim.diagnostic.config({
+  virtual_text = false,  -- Disable virtual text diagnostics
+  signs = false,         -- Disable diagnostic signs (including the lightbulb)
+  underline = false,     -- Disable diagnostic underlines
+  update_in_insert = false, -- Disable diagnostics while in insert mode
+})

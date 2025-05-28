@@ -12,15 +12,12 @@ if not vim.loop.fs_stat(lazypath) then
 	})
 end
 vim.opt.rtp:prepend(lazypath)
+require("config.secrets")
 require("lazy").setup("plugins")
--- GENERAL SETTINGS
-require("keymaps")
+require("config.keymaps")
 require("avante.prompt")
-require("options")
+require("config.options")
+require("config.secrets")
 require("lsp")
 
-
--- Plugin specific configs.
--- require("plugs.treesitter")
-
-
+local avante_commands = require("avante.commands")
