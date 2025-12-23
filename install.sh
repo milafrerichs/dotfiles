@@ -13,6 +13,7 @@ ln -s ~/dotfiles/.zshrc.history ~/.zshrc.history
 ln -s ~/dotfiles/.working_man.yml ~/.working_man.yml
 ln -s ~/dotfiles/tmuxinator.yml ~/tmuxinator.yml
 ln -s ~/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/dotfiles/justfile ~/justfile
 curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
 
 #needed for middleman

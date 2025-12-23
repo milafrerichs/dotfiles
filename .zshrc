@@ -40,7 +40,7 @@ source $ZSH/oh-my-zsh.sh
 
 source $HOME/dotfiles/zsh/aliases
 
-export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 
 # Customize to your needs...
 
@@ -69,6 +69,7 @@ export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="/usr/local/opt/openssl/bin:$PATH"
 export PATH="/usr/local/opt/openjdk/bin:$PATH"
 
+export PATH="$HOME/dotfiles/bin:$PATH"
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/milafrerichs/Downloads/google-cloud-sdk/path.zsh.inc'; fi
 
@@ -79,4 +80,10 @@ if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/completion.zsh.inc' ]; t
 #eval "$(pyenv init -)"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
 . "$HOME/.local/bin/env"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"

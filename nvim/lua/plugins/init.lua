@@ -1,7 +1,31 @@
 return {
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
-	"lambdalisue/fern.vim",
+	{
+		"mason-org/mason-lspconfig.nvim",
+		opts = {
+			ensure_installed = {
+				"lua_ls",
+				"rust_analyzer",
+				"ruff",
+				"ruby_lsp",
+				"gopls",
+				"html",
+				"ts_ls",
+				"jinja_lsp",
+				"rubocop",
+				"herb_ls",
+			},
+		},
+		dependencies = {
+			{ "mason-org/mason.nvim", opts = {} },
+			"neovim/nvim-lspconfig",
+		},
+	},
+	{
+		"lambdalisue/vim-fern-bookmark",
+		dependencies = {
+			"lambdalisue/fern.vim",
+		},
+	},
 	"tpope/vim-repeat",
 	"tpope/vim-surround",
 	"bronson/vim-trailing-whitespace",
@@ -10,10 +34,11 @@ return {
 	"editorconfig/editorconfig-vim",
 	"Chiel92/vim-autoformat",
 	"chrisbra/csv.vim",
-	"dense-analysis/ale",
 	"compactcode/alternate.vim",
-	"neovim/nvim-lspconfig",
 	"hrsh7th/cmp-nvim-lsp",
+	"hrsh7th/cmp-cmdline",
+	"hrsh7th/cmp-nvim-lsp-document-symbol",
+	"hrsh7th/cmp-nvim-lsp-signature-help",
 	"onsails/lspkind-nvim",
 	"rmagatti/goto-preview",
 	"burntsushi/ripgrep",
@@ -25,32 +50,60 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		build = ":TSUpdate",
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				ensure_installed = {
-					"typescript",
-					"lua",
-					"vim",
-					"vimdoc",
-					"query",
-					"ruby",
-					"python",
-					"javascript",
-					"html",
-				},
-			})
-		end,
+		opts = {
+			ensure_installed = {
+				"typescript",
+				"lua",
+				"vim",
+				"vimdoc",
+				"query",
+				"ruby",
+				"python",
+				"javascript",
+				"html",
+				"mchat",
+			},
+		},
 	},
 	{
 		"nvim-tree/nvim-web-devicons",
-		config = function()
-			require("nvim-web-devicons").setup({})
-		end,
+		opts = {},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
-		tag = "0.1.4",
-		dependencies = { "nvim-lua/plenary.nvim" },
+		tag = "0.1.5",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"jonarrien/telescope-cmdline.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
+			"sato-s/telescope-rails.nvim",
+		},
+		keys = {
+			{ "Q", "<cmd>Telescope cmdline<cr>", desc = "Cmdline" },
+			{ "<leader><leader>", "<cmd>Telescope cmdline<cr>", desc = "Cmdline" },
+			{ "<leader>trs", "<cmd>Telescope rails specs<cr>", desc = "Rails" },
+		},
+		config = function()
+			require("telescope").setup({
+				pickers = {
+					find_files = {
+						hidden = true,
+						theme = "ivy",
+					},
+				},
+				extensions = {
+					["ui-select"] = {
+						require("telescope.themes").get_dropdown({}),
+					},
+				},
+			})
+			require("telescope").load_extension("cmdline")
+			require("telescope").load_extension("ui-select")
+			require("telescope").load_extension("rails")
+			local builtin = require("telescope.builtin")
+			vim.keymap.set("n", "<C-p>", builtin.find_files, {})
+			vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
+		end,
 	},
 	{
 		"stevearc/aerial.nvim",
@@ -63,13 +116,11 @@ return {
 	},
 	{
 		"nvimdev/lspsaga.nvim",
-		config = function()
-			require("lspsaga").setup({
-				lightbulb = {
-					enable = false
-				}
-			})
-		end,
+		opts = {
+			lightbulb = {
+				enable = false,
+			},
+		},
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter", -- optional
 			"nvim-tree/nvim-web-devicons", -- optional
@@ -77,18 +128,17 @@ return {
 	},
 	{
 		"hrsh7th/nvim-cmp",
-		config = function()
-			require("cmp").setup({
-				show_message = false,
-				snippet = {
-					expand = function(args)
-						vim.snippet.expand(args.body)
-					end,
-				},
-			})
-		end,
+		--config = function()
+		--		require("cmp").setup({
+		--			show_message = false,
+		--			snippet = {
+		--				expand = function(args)
+		--					vim.snippet.expand(args.body)
+		--				end,
+		--			},
+		--		})
+		--	end,
 	},
-	"nvim-neotest/neotest-jest",
 	{
 		"folke/which-key.nvim",
 		event = "VeryLazy",
@@ -102,68 +152,5 @@ return {
 				desc = "Buffer Local Keymaps (which-key)",
 			},
 		},
-	},
-	{
-		"gsuuon/model.nvim",
-
-		-- Don't need these if lazy = false
-		cmd = { "M", "Model", "Mchat" },
-		init = function()
-			vim.filetype.add({
-				extension = {
-					mchat = "mchat",
-				},
-			})
-		end,
-		ft = "mchat",
-
-		keys = {
-			{ "<C-m>d", ":Mdelete<cr>", mode = "n" },
-			{ "<C-m>s", ":Mselect<cr>", mode = "n" },
-			{ "<C-m><space>", ":Mchat<cr>", mode = "n" },
-		},
-
-		-- To override defaults add a config field and call setup()
-
-		config = function()
-			local ollama = require("model.providers.ollama")
-			require("model").setup({
-				default_prompt = { codellama },
-				prompts = {
-					codellama = {
-						provider = ollama,
-						params = {
-							model = "codellama",
-						},
-						builder = function(input)
-							return {
-								prompt = "[INST] <><>" .. input .. "[/INST]",
-							}
-						end,
-					},
-				},
-				--     chats = {..},
-				--     ..
-			})
-			--
-			--   require('model.providers.llamacpp').setup({
-			--     binary = '~/path/to/server/binary',
-			--     models = '~/path/to/models/directory'
-			--   })
-		end,
-	},
-	{
-		"toggl",
-		dir = "~/Development/tools/neovim/plugins/toggl",
-		opts = {
-			workspace_id = TOGGL_WORKSPACE_ID,
-			project_id = "",
-			api_token= TOGGL_API_TOKEN
-		},
-		dependencies = { 
-			"nvim-lua/plenary.nvim" ,
-		},
-
-
 	},
 }

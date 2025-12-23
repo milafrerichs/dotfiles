@@ -15,15 +15,19 @@ vim.api.nvim_set_keymap( "i", "<silent><F2>", "<C-O>:lnext<CR>", { noremap = tru
 vim.api.nvim_set_keymap( "v", "<silent><F2>", ":lnext<CR>", { noremap = true })
 
 
-vim.api.nvim_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
-vim.api.nvim_set_keymap('n', 'gf', '<Cmd>Lspsaga finder<CR>', opts)
+-- vim.api.nvim_set_keymap('n', 'K', '<Cmd>Lspsaga hover_doc<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gfi', '<Cmd>Lspsaga finder<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gd', '<Cmd>Lspsaga goto_definition<CR>', opts)
 vim.api.nvim_set_keymap('n', 'gp', '<Cmd>Lspsaga peek_definition<CR>', opts)
-vim.api.nvim_set_keymap('n', 'gr', '<Cmd>Lspsaga rename<CR>', opts)
+vim.api.nvim_set_keymap('n', 'gre', '<Cmd>Lspsaga rename<CR>', opts)
 vim.api.nvim_set_keymap('n', 'grp', '<Cmd>Lspsaga rename ++project<CR>', opts)
 vim.api.nvim_set_keymap('n', 'ld', '<Cmd>Lspsaga show_line_diagnostics<CR>', opts)
 --vim.api.nvim_set_keymap('n', '<C-j>', '<Cmd>Lspsaga diagnostic_jump_next<CR>', opts)
 --vim.api.nvim_set_keymap('i', '<C-k>', '<Cmd>Lspsaga signature_help<CR>', opts)
+vim.keymap.set("n", "<leader>gr", vim.lsp.buf.references, {})
+vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, {})
+vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {})
+vim.keymap.set("n", "<leader>H", vim.lsp.inlay_hint.enable(), {})
 
 vim.api.nvim_set_keymap('n', '<Leader>tt', '<Cmd>Neotest run file<CR>', opts)
 vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Neotest summary<CR>', opts)
@@ -31,4 +35,6 @@ vim.api.nvim_set_keymap('n', '<Leader>ts', '<Cmd>Neotest summary<CR>', opts)
 vim.api.nvim_set_keymap('n', '<Leader>p', '<Cmd>TimerStart 25m Work<CR>', opts)
 
 vim.api.nvim_set_keymap('n', '<Leader>o', '<Cmd>Other<CR>', opts)
+
+vim.api.nvim_set_keymap('n', '<Leader>f', '<Cmd>Fern %:h<CR>', opts)
 

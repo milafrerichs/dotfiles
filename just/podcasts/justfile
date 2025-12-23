@@ -1,0 +1,47 @@
+default_type := 'rss'
+default_limit := '1'
+bike_shed_feed := 'https://bikeshed.thoughtbot.com/rss'
+on_rails_feed := 'https://feeds.buzzsprout.com/2462975.rss'
+remote_ruby_feed := 'https://feeds.buzzsprout.com/2260490.rss'
+ten_percent_feed := "https://feeds.libsyn.com/570160/rss"
+huberman_feed := "https://feeds.megaphone.fm/hubermanlab"
+feel_better := "https://feeds.megaphone.fm/feelbetterlivemore"
+doaceo_feed := "https://feeds.megaphone.fm/thediaryofaceo"
+deep_questions_feed := "https://rss.pdrl.fm/2d4b16/feeds.simplecast.com/_IjaDYAj"
+
+default: last_all
+
+transcribe source limit=default_limit type=default_type:
+	@echo 'Transcribing {{source}}...'
+	#uv run main.py --type={{type}} --limit={{limit}} --source={{source}}
+	podcasts --type={{type}} --limit={{limit}} --source={{source}} --output-dir=/Users/milafrerichs/Documents/news/podcasts
+
+t_ten limit=default_limit: (transcribe ten_percent_feed limit)
+  @echo 'Ten Percent last {{limit}}…'
+
+t_rruby limit=default_limit: (transcribe remote_ruby_feed limit)
+  @echo 'Remote Ruby last {{limit}}…'
+
+t_bshed limit=default_limit: (transcribe bike_shed_feed limit)
+  @echo 'Bike Shed last {{limit}}…'
+
+t_orails limit=default_limit: (transcribe on_rails_feed limit)
+  @echo 'On Rails last {{limit}}…'
+
+t_fb limit=default_limit: (transcribe feel_better limit)
+  @echo 'Feel Better last {{limit}}…'
+
+t_hub limit=default_limit: (transcribe huberman_feed limit)
+  @echo 'Huberman Lab last {{limit}}…'
+
+t_ceo limit=default_limit: (transcribe doaceo_feed limit)
+  @echo 'Diary of a CEO last {{limit}}…'
+
+t_dq limit=default_limit: (transcribe deep_questions_feed limit)
+  @echo 'Deep Questions from Cal Newpoer last {{limit}}…'
+
+w_ten limit=default_limit: (transcribe ten_percent_feed limit)
+  @echo 'Extract wisdom using fabric; can we get the name of the things? or do we save differently? in a folder for the podcast and maybe date/number?'
+
+last_all: t_hub t_orails t_ten t_rruby t_bshed t_ceo t_fb
+  @echo 'Download and transcibe all last podcast'

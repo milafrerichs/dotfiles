@@ -1,32 +1,27 @@
 return {
-	'rgroli/other.nvim',
+	"rgroli/other.nvim",
 	config = function()
 		require("other-nvim").setup({
 			mappings = {
-						"angular",
-						"rails",
-						"golang",
-						"python",
-						"react",
-						"rust",
+				"rails",
+				"golang",
+				"python",
+				"react",
+				"rust",
+				{
+					pattern = "([^/]+)/(?:__tests__/)?([^/.]+)(?:\\.(?:test|spec))?\\.ts$",
+					target = {
 						{
-								pattern = "/(.*)/(.*)/.*.ts$",
-								target = {
-                {
-                    target = "/%1/%2/%2.component.html",
-                    context = "html"
-                },
-                {
-                    target = "/%1/%2/%2.component.spec.ts",
-                    context = "test"
-                },
-                {
-                    target = "/%1/%2/%2.service.spec.ts",
-                    context = "test"
-                }
-            }
-						}
+							target = "%1/__tests__/%2.test.ts",
+							context = "test",
+						},
+						{
+							target = "%1/%2.ts",
+							context = "implementation",
+						},
+					},
 				},
+			},
 		})
-	end
+	end,
 }
