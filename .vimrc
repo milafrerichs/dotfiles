@@ -32,11 +32,30 @@ Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/delimitMate'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'bling/vim-airline'
 Plugin 'JamshedVesuna/vim-markdown-preview'
+Plugin 'Shutnik/jshint2.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'honza/vim-snippets'
+Plugin 'thomd/vim-jasmine'
+Plugin 'yosssi/vim-ace'
+Plugin 'evanleck/vim-svelte'
+Plugin 'SirVer/ultisnips'
+Plugin 'Chiel92/vim-autoformat'
+Plugin 'mileszs/ack.vim'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'chrisbra/csv.vim'
+Plugin 'posva/vim-vue'
+Plugin 'python-mode/python-mode'
+Plugin 'vim-test/vim-test'
+Plugin 'compactcode/alternate.vim'
+Plugin 'compactcode/open.vim'
 
 " Colors
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'nanotech/jellybeans.vim'
 
 " All of your Plugins must be added before the following line
@@ -44,9 +63,16 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 
 " Use the colorscheme from above
-colorscheme jellybeans
+" colorscheme jellybeans
+let g:solarized_termcolors=256
+colorscheme solarized
+syntax enable
+set background=light
+set t_Co=256
 
 let mapleader = " "
+
+inoremap jj <Esc>
 
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
@@ -81,7 +107,7 @@ set encoding=utf-8
 set ignorecase
 set tabstop=2
 set shiftwidth=2
-set expandtab
+"set expandtab
 
 highlight StatusLine ctermfg=black ctermbg=green
 let g:airline#extensions#tabline#enabled = 1
@@ -94,19 +120,37 @@ nnoremap <C-l> <C-w>l
 
 map <Leader>p :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
+let g:pymode_rope_rename_bind = '<leader>rr'
+let g:jedi#rename_command = "<leader>jr"
+
 " Open new split panes to right and bottom, which feels more natural
 set splitbelow
 set splitright
 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
 " Code Style
 let g:vimrubocop_config = '~/dotfiles/rubocop.yml'
 let g:syntastic_javascript_checkers = ['standard']
+
+let jshint2_save = 1
+
+nnoremap <silent><F2> :lnext<CR>
+inoremap <silent><F2> <C-O>:lnext<CR>
+vnoremap <silent><F2> :lnext<CR>
 
 " Markdown
 let vim_markdown_preview_toggle = 1
 let vim_markdown_preview_hotkey = '<C-m>'
 let vim_markdown_preview_github = 1
 let vim_markdown_preview_temp_file = 1
+
+" UltiSnip
+let g:UltiSnipsExpandTrigger="<C-j>"
+
+command! -nargs=0 AS call open#OpenVertical(alternate#FindAlternate())
 
 augroup myfiletypes
   " Clear old autocmds in group
@@ -118,6 +162,7 @@ augroup myfiletypes
   " Make ?s part of words
   autocmd FileType ruby,eruby,yaml setlocal iskeyword+=?
   autocmd FileType javascript setlocal ai ts=2 sw=2 sts=2 et
+  autocmd BufNewFile,BufRead *Spec.js,*_spec.js,*.spec.js set filetype=jasmine.javascript syntax=jasmine
 augroup END
 
 set secure

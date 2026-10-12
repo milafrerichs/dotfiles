@@ -4,4 +4,7 @@
 [color]
 	ui = true
 [core]
-	editor = vim
+	editor = nvim
+	excludesfile = /Users/milafrerichs/.gitignore
+[init]
+	defaultBranch = main

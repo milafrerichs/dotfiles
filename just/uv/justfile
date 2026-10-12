@@ -1,0 +1,7 @@
+
+
+build_and_install:
+	uv build && uv install tool .
+
+run:
+	uv run

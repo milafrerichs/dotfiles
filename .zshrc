@@ -1,5 +1,7 @@
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -36,12 +38,52 @@ plugins=(git rails ruby bundler heroku)
 
 source $ZSH/oh-my-zsh.sh
 
-source $HOME/.dotfiles/zsh/aliases
+source $HOME/dotfiles/zsh/aliases
+
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@3)"
 
 # Customize to your needs...
 
 export PATH=/usr/local/share/npm/bin:$PATH
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+export PATH="/usr/local/bin:$PATH"
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$PATH
+export NVM_DIR="$HOME/.nvm"
+export EDITOR='vim'
 
-eval "$(rbenv init -)"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
+
+#eval "$(pyenv init -)"
+#export PATH=$(pyenv root)/shims:$PATH
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+
+# Added by serverless binary installer
+export PATH="$HOME/.serverless/bin:$PATH"
+
+#. $HOME/.asdf/asdf.sh
+
+#. /usr/local/opt/asdf/asdf.sh
+export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="/usr/local/opt/openjdk/bin:$PATH"
+
+export PATH="$HOME/dotfiles/bin:$PATH"
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/milafrerichs/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/milafrerichs/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/milafrerichs/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
+
+#. /usr/local/opt/asdf/libexec/asdf.sh
+#eval "$(pyenv init -)"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="${ASDF_DATA_DIR:-$HOME/.asdf}/shims:$PATH"
+
+. "$HOME/.local/bin/env"
+
+. "$HOME/.atuin/bin/env"
+
+eval "$(atuin init zsh)"
